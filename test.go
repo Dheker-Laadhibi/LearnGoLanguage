@@ -8,3 +8,8 @@ func main() {
     // print hello world
     fmt.Println("Hello, World!")
 }
+/*
+
+multiple lines  comment
+*/
+//single line comment
