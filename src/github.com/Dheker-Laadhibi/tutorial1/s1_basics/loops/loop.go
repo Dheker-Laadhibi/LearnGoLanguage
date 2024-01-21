@@ -32,7 +32,7 @@ f.Println(n)
 }
 
 
-f.Println("\n")
+f.Print("\n")
  
 // if k =4  get out of the loop not only the if statement
 for k :=0;k>=10 ; k++{
