@@ -25,4 +25,12 @@ fmt.Println("employee name : \n" , emp.name)
 //type of employee
 fmt.Printf("Type of emp: %T\n", emp)
 
+
+
+
+
+
+
+ emp2:=Newemployee("dhekerLaadhibi",21)
+ fmt.Println("constructor of employee" ,emp2)
 }
