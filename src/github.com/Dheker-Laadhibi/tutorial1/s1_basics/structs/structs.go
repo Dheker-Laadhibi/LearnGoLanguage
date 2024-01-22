@@ -1,5 +1,5 @@
 package main
-
+//Go supports methods defined on struct types
 import "fmt"
   // declaring struct
   type Employee struct {
@@ -15,6 +15,30 @@ import "fmt"
         we have structs
     */
 
+	//new struct  and his constructor
+type Rectangle struct {
+	width  int
+	height int
+}
+func NewRectangle(width int, height int) *Rectangle {
+
+    return &Rectangle{width: width, height: height}
+
+}
+// value getter receiver
+
+func (r *Rectangle) Area() int {
+    return r.width * r.height
+}
+//setter
+
+func (r *Rectangle) SetWidth(width int) {
+    r.width = width
+}
+func (r *Rectangle) SetHeight(height int) {
+    r.height = height
+}
+
 func main() {
     fmt.Println("what is structs in go ")
     
@@ -27,10 +51,11 @@ fmt.Printf("Type of emp: %T\n", emp)
 
 
 
-
-
-
-
  emp2:=Newemployee("dhekerLaadhibi",21)
  fmt.Println("constructor of employee" ,emp2)
+
+rect:=NewRectangle(10,5)
+fmt.Println("rect",*rect)
+fmt.Println("area",rect.Area())
+
 }
