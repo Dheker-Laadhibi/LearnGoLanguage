@@ -9,7 +9,14 @@ func WriteMsgTochannel(c chan string, msg string){
 
 }
 
-
+func squares(c chan int){
+	for i:=0;i<=3;i++{
+      //read msg from channel
+		num:=   <-c
+         f.Println(cap(c) , len(c))
+		 f.Println( num * num)
+	}
+}
 
 
 
@@ -76,5 +83,43 @@ f.Println("main() end ") */
 // closing channel
 // close(channel)
 
+
+//part 3 biffer size or channel capacity
+// as we saw every  send operation on channel blocking current goroutine
+// when the buffer size is  non             zero n , go routines  is not blocked until after buffer is full
+//define buffer is full , n is the capacity of channel
+
+// len & cap 2 built in functions to calculate length of channel buffer and capacity
+
+// using buffred channel we can read from closed channel
+
+
+f.Println("main() start ")
+
+/* c:= make(chan int)
+
+go squares(c)
+
+// send data to channel 
+c <-1
+c <-2
+c <-3 */
+
+
+c1:= make(chan int , 3)
+c2:= make(chan int )
+go squares(c1)
+//current goroutine isn't blocked here
+// send data to channel
+c1<-1
+c1<-2
+c1<-3
+c2<-1
+c2<-2
+c2<-3
+// make a block
+//c1<-4
+close(c2)
+f.Println("main() end")
 
 }
