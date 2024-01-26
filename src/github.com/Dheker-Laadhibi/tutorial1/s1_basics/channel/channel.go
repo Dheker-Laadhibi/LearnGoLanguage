@@ -3,6 +3,7 @@ package main
 import (
 	f "fmt"
 	"time"
+	s "sync"
 )
 
 func WriteMsgTochannel(c chan string, msg string){
@@ -47,7 +48,12 @@ func server2( ch chan string) {
 	ch<-"from server2 "
 }
 
+func service (wg *s.WaitGroup , instance int ){
+time.Sleep(3*time.Second)
+f.Println("service ", instance)
+wg.Done()//decrement counter
 
+}
 
 
 func main() {
@@ -160,7 +166,7 @@ f.Println(<-pongs)
 
 // the select statement is used to choose send/ receive channel operations
 //block main goroutine 
-
+/* 
 outp1 := make(chan string )
 outp2 := make(chan string)
 
@@ -173,9 +179,28 @@ case s1 := <-outp1:
 	f.Println(s1)
 	case s2 := <-outp2:
 		f.Println(s2)
-}
-//select statement randomly chooses one of its cases when multiple cases are ready.
+		default:
+			f.Println("default")
 
+} */
+//select statement randomly chooses one of its cases when multiple cases are ready.
+// choose one of avilable go routines
+
+
+
+
+
+// part 6 wait groups 
+
+// waitgroups is a struct with a counter value which tracks the number of goroutines still working and finished ones
+
+var wg s.WaitGroup //create a waitgroup emptty struct
+for i:=0;i<=3;i++{
+	wg.Add(1) // increment counter = 3  
+   go service(&wg,i)    
+}
+
+wg.Wait()//blocks here until counter 0
 
 
 f.Println("main() end ")
