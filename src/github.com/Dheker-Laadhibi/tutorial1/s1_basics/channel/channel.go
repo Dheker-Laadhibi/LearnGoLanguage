@@ -1,5 +1,9 @@
 package main
-import  f "fmt"
+
+import (
+	f "fmt"
+	"time"
+)
 
 func WriteMsgTochannel(c chan string, msg string){
 // send msg to channel
@@ -29,9 +33,19 @@ msg:= <-pings
 pongs <- msg
 }
 
+func server1( ch chan string) {
+	// 6 seconds timeout
+	time.Sleep(6*time.Second)
+		// send msg to channel ch
+	ch<-"from server 1"
+}
 
 
-
+func server2( ch chan string) {
+	time.Sleep(3*time.Second)
+	// send msg to channel ch
+	ch<-"from server2 "
+}
 
 
 
@@ -134,14 +148,36 @@ c2<-3 */
 // c1 := make(chan<-int) send  only channel
 //part 4 
 
-pings:=make(chan string ,1)
+/* pings:=make(chan string ,1)
 pongs:=make(chan string ,1)
 ping (pings, "passed message ")
 pong(pings, pongs)
 // read for pongs channel
 f.Println(<-pongs)
+ */
+
+// 5 select 
+
+// the select statement is used to choose send/ receive channel operations
+//block main goroutine 
+
+outp1 := make(chan string )
+outp2 := make(chan string)
+
+go server1(outp1)
+go server2(outp2)
+
+// select statement
+select{
+case s1 := <-outp1:
+	f.Println(s1)
+	case s2 := <-outp2:
+		f.Println(s2)
+}
+//select statement randomly chooses one of its cases when multiple cases are ready.
 
 
 
+f.Println("main() end ")
 
 }
