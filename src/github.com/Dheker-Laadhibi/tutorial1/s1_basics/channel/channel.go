@@ -66,12 +66,15 @@ the
  deadlock error occurs crashing whole program*/
 
  //deadlock error occurs
- f.Println("main() starter")
+
+ /* f.Println("main() starter")
 m:= make(chan string)
 m <-"hello world"
 f.Println("message :" , <-m)
-f.Println("main() end ")
-
+f.Println("main() end ") */
+ 
+// closing channel
+// close(channel)
 
 
 }
