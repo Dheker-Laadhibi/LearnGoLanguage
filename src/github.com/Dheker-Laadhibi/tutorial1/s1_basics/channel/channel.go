@@ -43,13 +43,13 @@ var c chan int
 
 
 // new channel called msg 
-msg:= make(chan string)
-// send msg to channel by func 
-go WriteMsgTochannel(msg , "hello channel")
+//msg:= make(chan string)
+// send msg to channel by goroutine 
+//go WriteMsgTochannel(msg , "hello channel")
 // read msg from channel 
-f.Print("before receive message")
-f.Println("message:" , <-msg)
-f.Print("after receive message from channel")
+//f.Print("before receive message")
+//f.Println("message:" , <-msg)
+//f.Print("after receive message from channel")
 
 /*
 
@@ -59,8 +59,18 @@ the
 <-msg syntax.
 */
 
+////////////////////////////////////////////////////////////////
+// dead block handling - closing the channel
 
+/*if there is no goroutine available  thats where
+ deadlock error occurs crashing whole program*/
 
+ //deadlock error occurs
+ f.Println("main() starter")
+m:= make(chan string)
+m <-"hello world"
+f.Println("message :" , <-m)
+f.Println("main() end ")
 
 
 
