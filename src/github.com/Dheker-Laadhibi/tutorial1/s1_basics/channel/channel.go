@@ -18,8 +18,16 @@ func squares(c chan int){
 	}
 }
 
-
-
+//write a msg 
+func ping(pings chan<-string, msg string){
+	pings <- msg
+}
+// rread msg 
+func pong(pings <-chan string , pongs chan<- string){
+msg:= <-pings
+// push msg to channel
+pongs <- msg
+}
 
 
 
@@ -106,20 +114,34 @@ c <-2
 c <-3 */
 
 
-c1:= make(chan int , 3)
+/* c1:= make(chan int , 3)
 c2:= make(chan int )
-go squares(c1)
+go squares(c1) */
 //current goroutine isn't blocked here
 // send data to channel
-c1<-1
+/* c1<-1
 c1<-2
 c1<-3
 c2<-1
 c2<-2
-c2<-3
+c2<-3 */
 // make a block
-//c1<-4
-close(c2)
-f.Println("main() end")
+//c1<-4   
+
+/* close(c2) */
+
+// c:= make(<-chan) receive only channel
+// c1 := make(chan<-int) send  only channel
+//part 4 
+
+pings:=make(chan string ,1)
+pongs:=make(chan string ,1)
+ping (pings, "passed message ")
+pong(pings, pongs)
+// read for pongs channel
+f.Println(<-pongs)
+
+
+
 
 }
