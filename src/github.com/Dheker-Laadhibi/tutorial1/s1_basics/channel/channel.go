@@ -54,7 +54,21 @@ f.Println("service ", instance)
 wg.Done()//decrement counter
 
 }
+ var i int // i =0
+ var mutex = &s.Mutex{}
+ func runrun(wg *s.WaitGroup){
+i++
+wg.Done()
+ }
 
+
+
+ func runrunMutex(wg *s.WaitGroup){
+	mutex.Lock()
+	i++
+	mutex.Unlock()
+	wg.Done()
+	 }
 
 func main() {
 	f.Println("Hello channel!")
@@ -195,14 +209,22 @@ case s1 := <-outp1:
 // waitgroups is a struct with a counter value which tracks the number of goroutines still working and finished ones
 
 var wg s.WaitGroup //create a waitgroup emptty struct
-for i:=0;i<=3;i++{
+/* for i:=0;i<=3;i++{
 	wg.Add(1) // increment counter = 3  
    go service(&wg,i)    
 }
+ */
 
+ //mutexes
+ for i:=0;i<100;i++{
+wg.Add(1) // increment counter 
+//go runrun(&wg)
+go runrunMutex(&wg)
+
+ }
 wg.Wait()//blocks here until counter 0
 
 
-f.Println("main() end ")
+f.Println(i)
 
 }
